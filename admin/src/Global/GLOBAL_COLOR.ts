@@ -1,0 +1,1 @@
+export const GLOBAL_COLOR = '#1976d2';

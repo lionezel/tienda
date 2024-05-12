@@ -1,0 +1,1 @@
+export const LOGO_COMPANY = "https://png.pngtree.com/png-clipart/20230520/original/pngtree-burger-logo-png-image_9166715.png"

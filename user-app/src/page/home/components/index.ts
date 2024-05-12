@@ -1,0 +1,5 @@
+export * from "./TypeFood"
+export * from "./Carrousel"
+export * from "./CardProduct"
+export * from "./ListProducts"
+export * from "./SearchProduct"
