@@ -27,7 +27,7 @@ export const Users = () => {
         <ListItemIcon>
           <PanoramaFishEyeIcon />
         </ListItemIcon>
-        <ListItemText primary="Ordenes" />
+        <ListItemText primary="Usuarios" />
         {open ? <ExpandLess /> : <ExpandMore />}
       </ListItemButton>
       <Collapse in={open} timeout="auto" unmountOnExit>
