@@ -1,7 +1,15 @@
 import styled from "styled-components";
+import { useFetchUsers } from "../../hook/useFetchUsers";
+import { SearchUsers } from "./components";
 
 export const Users = () => {
-  return <Conatiner>Users</Conatiner>;
+  const users = useFetchUsers();
+
+  return (
+    <Conatiner>
+      <SearchUsers users={users} />
+    </Conatiner>
+  );
 };
 
 const Conatiner = styled.div`

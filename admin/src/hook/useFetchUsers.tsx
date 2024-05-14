@@ -3,11 +3,11 @@ import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase/config";
 import { User } from "../interfaces/User";
 
-export const useFetchProducts = () => {
-  const [user, setUser] = useState<User[]>([]);
+export const useFetchUsers = () => {
+  const [users, setUsers] = useState<User[]>([]);
 
   useEffect(() => {
-    const fetchProducts = async () => {
+    const fetchUsers = async () => {
       try {
         const userRef = collection(db, "users");
         const querySnapshot = await getDocs(userRef);
@@ -17,15 +17,15 @@ export const useFetchProducts = () => {
           address: doc.data().address || "",
           email: doc.data().email || "",
           lastName: doc.data().lastName || "",
-          telefone: doc.data().telefone || "",
+          telefone: doc.data().telefone || 0,
         }));
-        setUser(userData);
+        setUsers(userData);
       } catch (error) {
         console.error("Error fetching user:", error);
       }
     };
 
-    fetchProducts();
+    fetchUsers();
   }, []);
-  return user;
+  return users;
 };
