@@ -8,8 +8,8 @@ import Collapse from "@mui/material/Collapse";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import { useState } from "react";
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import { Orders, Products } from "./components";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import { Orders, Products, Users } from "./components";
 
 export const Navbar = () => {
   const [open, setOpen] = useState(true);
@@ -18,7 +18,6 @@ export const Navbar = () => {
     setOpen(!open);
   };
 
-
   return (
     <>
       <Container>
@@ -26,10 +25,7 @@ export const Navbar = () => {
           <HomeIcon />
           <Title>Home</Title>
         </CustomLink>
-        <List
-          component="nav"
-          aria-labelledby="nested-list-subheader"
-        >
+        <List component="nav" aria-labelledby="nested-list-subheader">
           <ListItemButton onClick={handleClick}>
             <ListItemIcon>
               <ShoppingCartIcon />
@@ -39,8 +35,9 @@ export const Navbar = () => {
           </ListItemButton>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
-             <Products />
-             <Orders />
+              <Products />
+              <Orders />
+              <Users />
             </List>
           </Collapse>
         </List>
