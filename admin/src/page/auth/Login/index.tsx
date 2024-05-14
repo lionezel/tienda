@@ -2,16 +2,33 @@ import { useState } from "react";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { Box, TextField, Button } from "@mui/material";
 import { app } from "../../../firebase/config";
+import { useNavigate } from "react-router-dom";
 
 const auth = getAuth(app);
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const handleLogin = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    await signInWithEmailAndPassword(auth, email, password);
+
+    try {
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      const user = userCredential.user;
+      if (user && user.email === "admin@gmail.com") {
+        navigate("/");
+      } else {
+        console.log("Usuario no autorizado");
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (

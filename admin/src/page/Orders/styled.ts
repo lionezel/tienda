@@ -8,4 +8,5 @@ export const Container = styled.div`
   padding-left: 200px;
   padding-right: 200px;
   overflow-y: auto; 
+   margin-top: 100px;
 `

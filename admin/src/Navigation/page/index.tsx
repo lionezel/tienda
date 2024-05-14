@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import {  Route, Routes } from "react-router-dom";
 import {
   CreateProduct,
   Home,
@@ -8,16 +8,15 @@ import {
   Users,
 } from "../../page";
 
-import { Navbar } from "../../shared";
-
 import styled from "styled-components";
 import { OrderDetails, OrdersCompleted } from "../../page/Orders/Page";
+import { NavAdmin } from "../../shared";
+
 
 const AppRouter = () => {
   return (
     <Container>
-      <BrowserRouter>
-        <Navbar />
+      <NavAdmin />
         <Routes>
           <Route path="/" Component={Home} />
 
@@ -30,8 +29,9 @@ const AppRouter = () => {
           <Route path="/Orders/:orderId" Component={OrderDetails} />
 
           <Route path="/users" Component={Users} />
+
         </Routes>
-      </BrowserRouter>
+
     </Container>
   );
 };

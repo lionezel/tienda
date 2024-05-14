@@ -1,11 +1,21 @@
 import styled from "styled-components";
 import AppRouter from "./Navigation/page";
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { Navbar } from "./shared";
+
+import Login from "./page/auth/Login";
 
 function App() {
   return (
-    <Container>
-      <AppRouter />
-    </Container>
+    <Router>
+    <Routes>
+      <Route path="/login" element={<Login />} />
+      <Route path="*" element={<>
+        <Navbar />
+        <AppRouter />
+      </>} />
+    </Routes>
+  </Router>
   );
 }
 
