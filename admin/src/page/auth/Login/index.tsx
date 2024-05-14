@@ -3,6 +3,7 @@ import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { Box, TextField, Button } from "@mui/material";
 import { app } from "../../../firebase/config";
 import { useNavigate } from "react-router-dom";
+import { Container, Content } from "./styled";
 
 const auth = getAuth(app);
 
@@ -32,7 +33,8 @@ function Login() {
   };
 
   return (
-    <div>
+    <Container>
+      <Content>
       <h1>Inicia sesión</h1>
       <Box
         component="form"
@@ -63,7 +65,8 @@ function Login() {
           Iniciar sesión
         </Button>
       </Box>
-    </div>
+      </Content>
+    </Container>
   );
 }
 

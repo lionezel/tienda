@@ -1,4 +1,4 @@
-import {  Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import {
   CreateProduct,
   Home,
@@ -10,12 +10,13 @@ import {
 
 import styled from "styled-components";
 import { OrderDetails, OrdersCompleted } from "../../page/Orders/Page";
-import { NavAdmin } from "../../shared";
+import { NavAdmin, Navbar } from "../../shared";
 
 
 const AppRouter = () => {
   return (
     <Container>
+       <Navbar />
       <NavAdmin />
         <Routes>
           <Route path="/" Component={Home} />
