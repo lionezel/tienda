@@ -15,6 +15,7 @@ export const ShowProducts = () => {
 
 const Container = styled.div`
   margin-left: 15%; 
+  margin-top: 100px;
   width: 85%; 
   height: 100vh;
   padding-left: 200px;

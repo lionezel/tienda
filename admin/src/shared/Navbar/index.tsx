@@ -9,7 +9,7 @@ import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import { useState } from "react";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import { Orders, Products, Users } from "./components";
+import { Orders, Products, SingOut, Users } from "./components";
 
 export const Navbar = () => {
   const [open, setOpen] = useState(true);
@@ -41,6 +41,7 @@ export const Navbar = () => {
             </List>
           </Collapse>
         </List>
+        <SingOut />
       </Container>
     </>
   );

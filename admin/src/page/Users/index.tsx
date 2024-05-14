@@ -13,7 +13,7 @@ export const Users = () => {
 };
 
 const Conatiner = styled.div`
-  margin-top: 20px;
+  margin-top: 100px;
   margin-left: 15%;
   width: 85%;
   height: 100vh;

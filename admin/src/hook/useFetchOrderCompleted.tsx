@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase/config";
+import { OrderCompleted } from "../interfaces/OrderCompleted";
 
 
 const useFetchOrderCompleted = () => {
-  const [order, setOrder] = useState<unknown | null>(null);
+  const [order, setOrder] = useState<OrderCompleted | null>(null);
 
   useEffect(() => {
     const fetchOrder = async () => {
@@ -14,7 +15,8 @@ const useFetchOrderCompleted = () => {
         orderSnapshot.forEach((doc) => {
           const orderData = {
             orderId: doc.data().orderId,
-            order: doc.data().order || ""
+            order: doc.data().order || "",
+            createdAt: doc.data().createdAt
           };
           setOrder(orderData);
         });
