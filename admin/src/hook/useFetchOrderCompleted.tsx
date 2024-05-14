@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase/config";
 import { OrderCompleted } from "../interfaces/OrderCompleted";
+import { collection, getDocs } from "firebase/firestore";
 
 const useFetchOrderCompleted = () => {
   const [order, setOrder] = useState<OrderCompleted | null>(null);
@@ -19,8 +19,7 @@ const useFetchOrderCompleted = () => {
             createdAt: doc.data().order.createdAt,
             state: doc.data().order.state,
             name: doc.data().order.name,
-            paymentMethod: doc.data().order.products.paymentMethod,
-            OpcionDeEntrega: doc.data().order.products.OpcionDeEntrega,
+            total: doc.data().order.total,
           };
           setOrder(orderData);
         });
