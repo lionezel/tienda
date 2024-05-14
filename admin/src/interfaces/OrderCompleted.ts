@@ -1,7 +1,11 @@
 import { Order } from "./Orders";
 
 export interface OrderCompleted {
-    createdAt: string;
-    orderId: string;
-    order: Order[]
+  createdAt: string;
+  orderId: string;
+  order: Order[];
+  state: string;
+  name: string;
+  paymentMethod: string;
+  OpcionDeEntrega: string;
 }

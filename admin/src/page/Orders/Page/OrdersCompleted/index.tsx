@@ -4,7 +4,7 @@ import { TableOrderCompleted } from "./components";
 
 export const OrdersCompleted = () => {
   const order = useFetchOrderCompleted();
-  
+
   return (
     <Container>
       <div>OrdersCompleted</div> <TableOrderCompleted order={order} />
