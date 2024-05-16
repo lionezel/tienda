@@ -1,5 +1,6 @@
 import LogoutIcon from "@mui/icons-material/Logout";
 import { auth } from "../../../../firebase/config";
+import { ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
 
 export const SingOut = () => {
   const handleSingOut = async () => {
@@ -12,12 +13,11 @@ export const SingOut = () => {
   };
 
   return (
-    <div
-      style={{ alignItems: "center", cursor: "pointer" }}
-      onClick={handleSingOut}
-    >
-      <LogoutIcon />
-      SingOut
-    </div>
+    <ListItemButton onClick={handleSingOut}>
+      <ListItemIcon>
+        <LogoutIcon />
+      </ListItemIcon>
+      <ListItemText primary="Sign Out" />
+    </ListItemButton>
   );
 };
