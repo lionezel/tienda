@@ -6,7 +6,7 @@ export const IconsInteractive = () => {
     <Stack direction="row" spacing={4}>
       <Badge badgeContent={1} color="primary">
         <NotificationsNoneIcon
-          sx={{ position: "relative", top: "5px", fontSize: "30px" }}
+          sx={{ position: "relative", top: "1px", fontSize: "30px" }}
         />
       </Badge>
 

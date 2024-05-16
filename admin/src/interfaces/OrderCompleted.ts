@@ -6,6 +6,5 @@ export interface OrderCompleted {
   order: Order[];
   state: string;
   name: string;
-  paymentMethod: string;
-  OpcionDeEntrega: string;
+  total: number;
 }

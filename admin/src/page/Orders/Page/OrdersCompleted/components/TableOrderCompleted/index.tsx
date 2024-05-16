@@ -8,19 +8,24 @@ import {
 } from "@mui/material";
 import styled from "styled-components";
 import { OrderCompleted } from "../../../../../../interfaces/OrderCompleted";
-
 interface Props {
-  order: OrderCompleted | null;
+  orders: OrderCompleted[];
 }
 
-export const TableOrderCompleted = ({ order }: Props) => {
-  console.log(order?.createdAt);
+export const TableOrderCompleted = ({ orders }: Props) => {
   return (
-    <TableContainer style={{ backgroundColor: "white" }}>
-      <Table sx={{ minWidth: 700 }} aria-label="customized table">
+    <TableContainer
+      sx={{
+        backgroundColor: "white",
+        mt: "30px",
+      }}
+    >
+      <Table>
         <TableHead>
           <TableRow>
-            <StyledTableCell>Orden</StyledTableCell>
+            <StyledTableCell component="th" scope="row">
+              Orden
+            </StyledTableCell>
             <StyledTableCell component="th" scope="row">
               Fecha
             </StyledTableCell>
@@ -31,43 +36,24 @@ export const TableOrderCompleted = ({ order }: Props) => {
               Estado
             </StyledTableCell>
             <StyledTableCell component="th" scope="row">
-              Metodo de pago
-            </StyledTableCell>
-            <StyledTableCell component="th" scope="row">
-              Opcion de entrega
+              Total
             </StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {order && (
-            <StyledTableRow>
-              <StyledTableCell component="th" scope="row">
-                {order.orderId}
-              </StyledTableCell>
+          {orders.map((order, index) => (
+            <StyledTableRow key={index}>
+              <StyledTableCell>{order.orderId}</StyledTableCell>
 
-              <StyledTableCell component="th" scope="row">
-                {order.createdAt}
-              </StyledTableCell>
+              <StyledTableCell>{order.createdAt}</StyledTableCell>
 
-              <StyledTableCell component="th" scope="row">
-                {order.name}
-              </StyledTableCell>
+              <StyledTableCell>{order.name}</StyledTableCell>
 
-              <StyledTableCell component="th" scope="row">
-                {order.state}
-              </StyledTableCell>
+              <StyledTableCell>{order.state}</StyledTableCell>
 
-              <StyledTableCell component="th" scope="row">
-                {order.paymentMethod}
-              </StyledTableCell>
-
-              <StyledTableCell component="th" scope="row">
-                {order.OpcionDeEntrega}
-              </StyledTableCell>
-
-              <StyledTableCell component="th" scope="row"></StyledTableCell>
+              <StyledTableCell>${order.total}</StyledTableCell>
             </StyledTableRow>
-          )}
+          ))}
         </TableBody>
       </Table>
     </TableContainer>
@@ -76,7 +62,9 @@ export const TableOrderCompleted = ({ order }: Props) => {
 
 const StyledTableCell = styled(TableCell)(() => ({
   "&.MuiTableCell-head": {
-    backgroundColor: "White",
+    backgroundColor: "#1976d2",
+    color: "white",
+    fontWeight: "bold",
   },
   "&.MuiTableCell-body": {
     fontSize: 14,
@@ -87,7 +75,6 @@ const StyledTableRow = styled(TableRow)(() => ({
   "&:nth-of-type(odd)": {
     backgroundColor: "white",
   },
-  // hide last border
   "&:last-child td, &:last-child th": {
     border: 0,
   },

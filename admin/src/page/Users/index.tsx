@@ -6,13 +6,13 @@ export const Users = () => {
   const users = useFetchUsers();
 
   return (
-    <Conatiner>
+    <Container>
       <SearchUsers users={users} />
-    </Conatiner>
+    </Container>
   );
 };
 
-const Conatiner = styled.div`
+const Container = styled.div`
   margin-top: 100px;
   margin-left: 15%;
   width: 85%;
