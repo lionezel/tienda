@@ -18,7 +18,7 @@ export const Products = () => {
 
   const nav = [
     { page: "/Products", name: "Lista de producto" },
-    { page: "/Products/createProduct", name: "Anadir producto" },
+    { page: "/createProduct", name: "Anadir producto" },
   ];
 
   return (

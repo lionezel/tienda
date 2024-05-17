@@ -23,7 +23,7 @@ export const Home = () => {
 
   return (
     <View>
-      <ScrollView h="560px">
+      <ScrollView h="auto">
         <SearchProduct products={products} />
       </ScrollView>
     </View>

@@ -18,7 +18,7 @@ export const Orders = () => {
 
   const nav = [
     { page: "/Orders", name: "Lista de ordenes" },
-    { page: "/Orders/completed", name: "ordenes completas" },
+    { page: "/ordercompleted", name: "ordenes completas" },
   ];
 
   return (

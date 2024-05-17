@@ -22,11 +22,11 @@ const AppRouter = () => {
           <Route path="/" Component={Home} />
 
           <Route path="/Products" Component={ShowProducts} />
-          <Route path="/Products/createProduct" Component={CreateProduct} />
-          <Route path="/Products/updateProduct/:id" Component={UpdateProduct} />
+          <Route path="/createProduct" Component={CreateProduct} />
+          <Route path="/updateProduct/:id" Component={UpdateProduct} />
 
           <Route path="/Orders" Component={Orders} />
-          <Route path="/Orders/completed" Component={OrdersCompleted} />
+          <Route path="/ordercompleted" Component={OrdersCompleted} />
           <Route path="/Orders/:orderId" Component={OrderDetails} />
 
           <Route path="/users" Component={Users} />
