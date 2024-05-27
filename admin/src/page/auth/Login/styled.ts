@@ -1,10 +1,11 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-    border: 1px solid #111;
+    align-items: center;
+    text-align: center;
+    padding: 200px;
 `
 
 export const Content = styled.div`
- 
-    margin: 200px;
+    background-color: aliceblue;
 `

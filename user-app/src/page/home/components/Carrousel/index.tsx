@@ -3,13 +3,13 @@ import React, { useEffect, useState } from "react";
 import Swiper from "react-native-swiper";
 import { db } from "../../../../firebase/config";
 import { collection, onSnapshot } from "@firebase/firestore";
-import { Carrousel } from "../../../../interfaces/Carrousel";
+
 import { Dimensions, StyleSheet } from "react-native";
 
 const { width } = Dimensions.get("window");
 
 export const CarrouselProm = () => {
-  const [data, setData] = useState<Carrousel[]>([]);
+  const [data, setData] = useState<any[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -18,7 +18,7 @@ export const CarrouselProm = () => {
 
         const subscriber = onSnapshot(productRef, {
           next: (snapshot) => {
-            const products: Carrousel[] = [];
+            const products: any[] = [];
             snapshot.docs.forEach((product) => {
               const data = product.data();
               products.push({

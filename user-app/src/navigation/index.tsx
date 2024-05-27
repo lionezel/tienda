@@ -1,74 +1,64 @@
-import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { createStackNavigator } from "@react-navigation/stack";
 import { FontAwesome5 } from "@expo/vector-icons";
-import {
-  Auth,
-  CartPage,
-  Home,
-  MyOrderInComing,
-  Order,
-  ProductDetail,
-} from "../page";
-import { UserInfo } from "../page/auth/page";
-import { Cart } from "../shared";
-import { PaymentMethod } from "../page/Order/components";
+import { AuthStack, HomeStack } from "./stacks";
+import { GLOBAL_COLOR } from "../GLOBAL/COLOR_GLOBAL";
+import { TouchableOpacity } from "react-native";
+import { View } from "native-base";
 
 const Tab = createBottomTabNavigator();
-const Stack = createStackNavigator();
 
-interface Stacks {
-  component: React.ComponentType<any>;
-  name: string;
-}
-
-const HomeStack = () => {
-  const stacks: Stacks[] = [
-    { component: Home, name: "Home" },
-    { component: ProductDetail, name: "ProductDetail" },
-    { component: Order, name: "Order" },
-    { component: MyOrderInComing, name: "MyOrderInComing" },
-    { component: PaymentMethod, name: "PaymentMethod" },
-  ];
-  return (
-    <Stack.Navigator>
-      {stacks.map((stack) => (
-        <Stack.Screen
-          component={stack.component}
-          name={stack.name}
-          options={{
-            headerTitleAlign: "center",
-            headerRight: () => <Cart />,
-          }}
-        />
-      ))}
-      <Stack.Screen component={UserInfo} name="UserInfo" />
-      <Stack.Screen
-        component={CartPage}
-        name="Carrito"
-        options={{ headerTitleAlign: "center" }}
-      />
-    </Stack.Navigator>
+export const Navigation = () => {
+  const PedidoButton = ({ children, onPress }: any) => (
+    <TouchableOpacity
+      style={{
+        top: -20,
+        justifyContent: "center",
+        alignItems: "center",
+        ...styles.shadow,
+      }}
+      onPress={onPress}
+    >
+      <View
+        style={{
+          width: 70,
+          height: 70,
+          borderRadius: 35,
+          backgroundColor: "white",
+        }}
+      >
+        {children}
+      </View>
+    </TouchableOpacity>
   );
-};
 
-const AuthStack = () => {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen
-        name="Auth"
-        component={Auth}
-        options={{ headerShown: false }}
-      />
-    </Stack.Navigator>
-  );
-};
+  const styles = {
+    shadow: {
+      shadowColor: "#000",
+      shadowOffset: { width: 0, height: 10 },
+      shadowOpacity: 0.5,
+      shadowRadius: 5,
+      elevation: 10,
+    },
+    tabBarShadow: {
+      shadowColor: "#000",
+      shadowOffset: { width: 0, height: 10 },
+      shadowOpacity: 0.5,
+      shadowRadius: 5,
+      elevation: 10,
+    },
+  };
 
-export default function Navigation() {
   return (
     <NavigationContainer>
-      <Tab.Navigator>
+      <Tab.Navigator
+        screenOptions={{
+          tabBarShowLabel: false,
+          tabBarStyle: styles.tabBarShadow,
+          tabBarActiveTintColor: GLOBAL_COLOR,
+          tabBarInactiveTintColor: "gray",
+        }}
+      >
         <Tab.Screen
           name="Inicio"
           component={HomeStack}
@@ -77,6 +67,19 @@ export default function Navigation() {
               <FontAwesome5 name="home" size={size} color={color} />
             ),
             headerShown: false,
+            tabBarActiveTintColor: GLOBAL_COLOR,
+          }}
+        />
+        <Tab.Screen
+          name="Pedido"
+          component={HomeStack}
+          options={{
+            tabBarIcon: ({ color, size }) => (
+              <FontAwesome5 name="shopping-bag" size={size} color="black" />
+            ),
+            tabBarButton: (props) => <PedidoButton {...props} />,
+            headerShown: false,
+            tabBarActiveTintColor: GLOBAL_COLOR,
           }}
         />
         <Tab.Screen
@@ -87,9 +90,11 @@ export default function Navigation() {
               <FontAwesome5 name="user" size={size} color={color} />
             ),
             headerTitleAlign: "center",
+            headerShown: false,
+            tabBarActiveTintColor: GLOBAL_COLOR,
           }}
         />
       </Tab.Navigator>
     </NavigationContainer>
   );
-}
+};

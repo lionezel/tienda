@@ -5,7 +5,6 @@ export const Container = styled.nav`
   background-color: white;
   color: black;
   width: 15%;
-  margin-right: 20px;
   text-align: center;
   align-items: stretch;
   height: 100vh;
