@@ -1,16 +1,18 @@
 import { useEffect, useState } from "react";
-import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase/config";
 import { OrderCompleted } from "../interfaces/OrderCompleted";
+import { collection, getDocs } from "firebase/firestore";
 
 const useFetchOrderCompleted = () => {
-  const [order, setOrder] = useState<OrderCompleted | null>(null);
+  const [order, setOrder] = useState<OrderCompleted[]>([]);
 
   useEffect(() => {
     const fetchOrder = async () => {
       try {
         const ordersRef = collection(db, "orderCompleted");
         const orderSnapshot = await getDocs(ordersRef);
+
+        const ordersData: OrderCompleted[] = [];
 
         orderSnapshot.forEach((doc) => {
           const orderData = {
@@ -19,11 +21,11 @@ const useFetchOrderCompleted = () => {
             createdAt: doc.data().order.createdAt,
             state: doc.data().order.state,
             name: doc.data().order.name,
-            paymentMethod: doc.data().order.products.paymentMethod,
-            OpcionDeEntrega: doc.data().order.products.OpcionDeEntrega,
+            total: doc.data().order.total,
           };
-          setOrder(orderData);
+          ordersData.push(orderData);
         });
+        setOrder(ordersData);
       } catch (error) {
         console.error("Error fetching order:", error);
       }
