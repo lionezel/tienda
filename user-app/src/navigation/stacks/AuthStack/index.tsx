@@ -1,11 +1,12 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import { Auth, CartPage } from "../../../page";
 import {
-  Login,
-  Register,
-  ResetPassword,
+ 
   UserInfo,
 } from "../../../page/auth/page";
+import { Login } from "../../../page/auth/page/Login";
+import { Register } from "../../../page/auth/page/Register";
+import { ResetPassword } from "../../../page/auth/page/ResetPassword";
 
 const Stack = createStackNavigator();
 
