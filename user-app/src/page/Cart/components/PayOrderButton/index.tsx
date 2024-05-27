@@ -45,8 +45,13 @@ export const PayOrderButton = ({ cartItems, totalPrice }: Props) => {
 
   const handleAddToOrder = async () => {
     try {
+      if (cartItems.length === 0) {
+        console.log("El carrito está vacío. No se puede crear una orden.");
+        return;
+      }
+  
       const user = auth.currentUser;
-
+  
       if (user?.uid) {
         const orderCollection = collection(db, `orders`);
         await addDoc(orderCollection, {
@@ -54,7 +59,7 @@ export const PayOrderButton = ({ cartItems, totalPrice }: Props) => {
           user_uid: user.uid,
           totalDelProducto: totalPrice,
         });
-
+  
         navigation.navigate("Order");
         console.log("Orden creada exitosamente");
       } else {

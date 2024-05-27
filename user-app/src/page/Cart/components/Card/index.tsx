@@ -34,6 +34,7 @@ export const CardCart = ({ cartItems }: Props) => {
                 source={{
                   uri: item.product.imageURL,
                 }}
+                alt="product"
               />
               <VStack>
                 <Text

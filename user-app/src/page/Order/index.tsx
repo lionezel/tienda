@@ -1,4 +1,4 @@
-import { Image, Text, View } from "native-base";
+import { Button, Image, Text, View } from "native-base";
 import React, { useEffect, useState } from "react";
 import {
   Address,

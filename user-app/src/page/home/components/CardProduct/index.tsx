@@ -53,12 +53,14 @@ export const CardProduct: React.FC<CardProps> = ({ product }) => {
             await updateDoc(doc.ref, { quantity: newQuantity });
           });
         } else {
-          await addDoc(collection(db, "cart"), {
+          const docRef = await addDoc(collection(db, "cart"), {
             user_uid: user.uid,
             product_id: product.id,
             product: product,
             quantity: 1,
+            cart_id: ""
           });
+          await updateDoc(docRef, { cart_id: docRef.id });
         }
         alert("Product added to cart successfully!");
       } else {
