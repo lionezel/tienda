@@ -55,10 +55,11 @@ export const PayOrderButton = ({ cartItems, totalPrice }: Props) => {
       if (user?.uid) {
         const orderCollection = collection(db, `orders`);
         await addDoc(orderCollection, {
-          products: cartItems,
           user_uid: user.uid,
           totalDelProducto: totalPrice,
         });
+
+        setHasOrdered(true);
   
         navigation.navigate("Order");
         console.log("Orden creada exitosamente");

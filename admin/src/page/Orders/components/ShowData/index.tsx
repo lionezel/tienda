@@ -7,8 +7,6 @@ interface Props {
 }
 
 export const ShowData = ({ orders }: Props) => {
-                   
-  console.log(orders);
   return (
     <div
       style={{

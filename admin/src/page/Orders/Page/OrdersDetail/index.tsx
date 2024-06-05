@@ -3,23 +3,19 @@
 import { useParams } from "react-router-dom";
 import { Container, Content } from "./styled";
 import {
+  PayMethod,
   StateOrder,
   TableProductOrder,
   TitleOrder,
   UserData,
 } from "./components";
 import useFetchOrder from "../../../../hook/useFetchOrder";
-import { useFetchProducts } from "../../../../hook/useFetchProducts";
+
 
 export const OrderDetails = () => {
   const { orderId } = useParams<{ orderId: string; action: string }>();
   const order = orderId ? useFetchOrder(orderId) : null;
-  const products = useFetchProducts();
-
-  
-  console.log(products)
-  console.log(order)
-
+ 
 
   return (
     <div>
@@ -29,6 +25,7 @@ export const OrderDetails = () => {
           {order && order.products && <TableProductOrder order={order} />}
           {order && <UserData order={order} />}
           {order && <StateOrder order={order} orderId={orderId} />}
+          <PayMethod />
         </Content>
       </Container>
     </div>

@@ -1,10 +1,15 @@
-
 import { createStackNavigator } from "@react-navigation/stack";
-import { CartPage, Checkout, Home, MyOrderInComing, Order, ProductDetail } from "../../../page";
+import {
+  CartPage,
+  Checkout,
+  Home,
+  MyOrderInComing,
+  Order,
+  ProductDetail,
+} from "../../../page";
 import { PaymentMethod } from "../../../page/Order/components";
 import { Cart } from "../../../shared";
 import { UserInfo } from "../../../page/auth/page";
-
 
 const Stack = createStackNavigator();
 

@@ -31,7 +31,7 @@ export const SearchProduct = ({ products }: ListProps) => {
           value={searchProduct}
           onChange={(e) => setSearchProduct(e.target.value)}
         />
-        <Link to={`/Products/createProduct`}>
+        <Link to={`/createProduct`}>
           <Button
             variant="contained"
             style={{ backgroundColor: GLOBAL_COLOR, color: "black" }}

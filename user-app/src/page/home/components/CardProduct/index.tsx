@@ -30,8 +30,7 @@ interface CardProps {
 
 export const CardProduct: React.FC<CardProps> = ({ product }) => {
   const navigation = useNavigation();
-  const [quantity, setQuantity] = useState(0);
-
+  
   const navigateToDetail = () => {
     navigation.navigate("ProductDetail", { productId: product.id });
   };
@@ -58,7 +57,6 @@ export const CardProduct: React.FC<CardProps> = ({ product }) => {
             product_id: product.id,
             product: product,
             quantity: 1,
-            cart_id: ""
           });
           await updateDoc(docRef, { cart_id: docRef.id });
         }

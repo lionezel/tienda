@@ -1,10 +1,12 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { FontAwesome5 } from "@expo/vector-icons";
-import { AuthStack, HomeStack } from "./stacks";
+
 import { GLOBAL_COLOR } from "../GLOBAL/COLOR_GLOBAL";
 import { TouchableOpacity } from "react-native";
 import { View } from "native-base";
+import { HomeStack } from "./stacks/HomeStack";
+import { AuthStack } from "./stacks";
 
 const Tab = createBottomTabNavigator();
 
@@ -70,18 +72,7 @@ export const Navigation = () => {
             tabBarActiveTintColor: GLOBAL_COLOR,
           }}
         />
-        <Tab.Screen
-          name="Pedido"
-          component={HomeStack}
-          options={{
-            tabBarIcon: ({ color, size }) => (
-              <FontAwesome5 name="shopping-bag" size={size} color="black" />
-            ),
-            tabBarButton: (props) => <PedidoButton {...props} />,
-            headerShown: false,
-            tabBarActiveTintColor: GLOBAL_COLOR,
-          }}
-        />
+
         <Tab.Screen
           name="Usuario"
           component={AuthStack}

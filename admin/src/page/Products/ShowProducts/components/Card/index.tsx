@@ -71,7 +71,7 @@ export const Cards: React.FC<CardProps> = ({ product, onDelete }) => {
       <StyledTableCell align="right">
         <Link
           style={{ color: "black" }}
-          to={`/Products/updateProduct/${product.id}`}
+          to={`/updateProduct/${product.id}`}
         >
           <EditIcon />
         </Link>
