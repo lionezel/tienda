@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Order } from "../../../../../../interfaces/Orders";
 import {
   Table,
@@ -10,6 +9,7 @@ import {
 } from "@mui/material";
 import React, { Key } from "react";
 import styled from "styled-components";
+
 interface Props {
   order: Order;
 }
@@ -37,15 +37,16 @@ export const TableProductOrder = ({ order }: Props) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {order.products.map((productOrder, index) => (
+          {order.products && order.products.map((productOrder, index) => (
             <React.Fragment key={index}>
-              {productOrder.products.map(
+              {productOrder.products && productOrder.products.map(
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 (product: any, innerIndex: Key | null | undefined) => (
                   <StyledTableRow key={innerIndex}>
                     <StyledTableCell component="th" scope="row">
                       {product.imageURL && (
                         <img
-                          src={product.product.imageURL}
+                          src={product[0]?.product?.imageURL}
                           style={{
                             width: 50,
                             borderRadius: 10,

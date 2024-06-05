@@ -1,8 +1,10 @@
 import { Route, Routes } from "react-router-dom";
 import {
   CreateProduct,
+  Deliverys,
   Home,
   Orders,
+  Qr,
   ShowProducts,
   UpdateProduct,
   Users,
@@ -11,28 +13,31 @@ import {
 import styled from "styled-components";
 import { OrderDetails, OrdersCompleted } from "../../page/Orders/Page";
 import { NavAdmin, Navbar } from "../../shared";
-
+import { CreateQr } from "../../page/Qr/components";
 
 const AppRouter = () => {
   return (
     <Container>
-       <Navbar />
+      <Navbar />
       <NavAdmin />
-        <Routes>
-          <Route path="/" Component={Home} />
+      <Routes>
+        <Route path="/" Component={Home} />
 
-          <Route path="/Products" Component={ShowProducts} />
-          <Route path="/createProduct" Component={CreateProduct} />
-          <Route path="/updateProduct/:id" Component={UpdateProduct} />
+        <Route path="/Products" Component={ShowProducts} />
+        <Route path="/createProduct" Component={CreateProduct} />
+        <Route path="/updateProduct/:id" Component={UpdateProduct} />
 
-          <Route path="/Orders" Component={Orders} />
-          <Route path="/ordercompleted" Component={OrdersCompleted} />
-          <Route path="/Orders/:orderId" Component={OrderDetails} />
+        <Route path="/Orders" Component={Orders} />
+        <Route path="/ordercompleted" Component={OrdersCompleted} />
+        <Route path="/Orders/:orderId" Component={OrderDetails} />
 
-          <Route path="/users" Component={Users} />
+        <Route path="/Qr" Component={Qr} />
+        <Route path="/CreateQr" Component={CreateQr} />
 
-        </Routes>
+        <Route path="/users" Component={Users} />
 
+        <Route path="/deliverys" Component={Deliverys} />
+      </Routes>
     </Container>
   );
 };

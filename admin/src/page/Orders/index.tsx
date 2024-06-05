@@ -23,6 +23,7 @@ export const Orders = () => {
           total: doc.data().total,
           state: doc.data().state,
           createdAt: doc.data().createdAt || "",
+          user_uid: doc.data().user_uid
         }));
         setOrders(ordersData);
       } catch (error) {
@@ -32,6 +33,8 @@ export const Orders = () => {
 
     fetchProducts();
   }, []);
+
+  console.log(orders)
 
   return (
     <Container >

@@ -58,8 +58,8 @@ export const DeliveryOption = ({ user }: Props) => {
 
           let opcionDeEntregaData = {};
 
-          if (deliveryOption === "delivery") {
-            opcionDeEntregaData = { OpcionDeEntrega: "delivery" };
+          if (deliveryOption === "Repartidor") {
+            opcionDeEntregaData = { OpcionDeEntrega: "Repartidor" };
           } else if (deliveryOption === "irPorElPedido") {
             opcionDeEntregaData = { OpcionDeEntrega: "irPorElPedido" };
           }
@@ -83,7 +83,7 @@ export const DeliveryOption = ({ user }: Props) => {
           <Radio value="irPorElPedido" my={2}>
             Ir por el producto
           </Radio>
-          <Radio value="delivery" my={2}>
+          <Radio value="Repartidor" my={2}>
             Pedir repartidor
           </Radio>
         </Radio.Group>

@@ -9,7 +9,7 @@ import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import { useState } from "react";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import { Orders, Products, SingOut, Users } from "./components";
+import { Deliverys, Orders, Products, Qr, SingOut, Users } from "./components";
 import { Drawer, IconButton, useMediaQuery } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 
@@ -65,6 +65,7 @@ export const Navbar = () => {
                   <Orders />
                   <Users />
                   <SingOut />
+                  <Qr />
                 </List>
               </Collapse>
             </List>
@@ -87,7 +88,9 @@ export const Navbar = () => {
                 <Products />
                 <Orders />
                 <Users />
-                <SingOut />
+                <Qr />
+                <Deliverys />
+                <SingOut />  
               </List>
             </Collapse>
           </List>

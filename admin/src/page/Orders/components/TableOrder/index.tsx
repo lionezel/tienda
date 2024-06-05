@@ -12,12 +12,40 @@ import styled from "styled-components";
 import { getStateStyle } from "../../../../Global/GLOBAL_STATES";
 import { GLOBAL_COLOR } from "../../../../Global/GLOBAL_COLOR";
 import { GetPaymentMethodStyle } from "../../../../Global/GLOBAL_METHOD";
+import { useEffect, useState } from "react";
+import { User } from "firebase/auth";
+import { QueryDocumentSnapshot, collection, getDocs, query, where } from "firebase/firestore";
+import { db } from "../../../../firebase/config";
 
 interface Props {
-  orders: Order[];
+  orders: Order;
 }
 
 export const TableOrder = ({ orders }: Props) => {
+  const [userData, setUserData] = useState<User | null>(null);
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const usersRef = collection(db, "users");
+      const q = query(usersRef, where("uid", "==", orders.user_uid));
+      const querySnapshot = await getDocs(q);
+
+      if (!querySnapshot.empty) {
+        const userDoc: QueryDocumentSnapshot = querySnapshot.docs[0];
+        const userDataFromSnapshot = userDoc.data() as User;
+        setUserData(userDataFromSnapshot);
+      } else {
+        console.log("No se encontró el usuario con el UID proporcionado");
+      }
+    };
+
+    fetchUserData();
+  }, [orders.user_uid]);
+
+
+
+console.log(userData)
+
   return (
     <TableContainer style={{ backgroundColor: "white" }}>
       <Table sx={{ minWidth: 700 }} aria-label="customized table">
@@ -66,12 +94,11 @@ export const TableOrder = ({ orders }: Props) => {
                 <div style={getStateStyle(order.state)}>{order.state}</div>
               </StyledTableCell>
               <StyledTableCell component="th" scope="row">
-                {typeof order.products[0].paymentMethod === "string" &&
+                {order.products && order.products.length > 0 && typeof order.products[0].paymentMethod === "string" &&
                   GetPaymentMethodStyle(order.products[0].paymentMethod)}
-                {}
               </StyledTableCell>
               <StyledTableCell component="th" scope="row">
-                {order.products[0].OpcionDeEntrega}
+                {order.products && order.products.length > 0 && order.products[0].OpcionDeEntrega}
               </StyledTableCell>
             </StyledTableRow>
           ))}

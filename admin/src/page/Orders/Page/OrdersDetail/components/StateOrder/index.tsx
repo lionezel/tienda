@@ -15,8 +15,7 @@ import { Container } from "./styled";
 import { GLOBAL_COLOR } from "../../../../../../Global/GLOBAL_COLOR";
 import { Order } from "../../../../../../interfaces/Orders";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import { TimeLine } from "./components";
-import notes from "./assets/notas-adhesivas.png";
+import { StateProduct, TimeLine } from "./components";
 import { formatDate } from "../../../../../../Global/FormatDate";
 
 interface Props {
@@ -30,6 +29,8 @@ interface OrderState {
 
 export const StateOrder: React.FC<Props> = ({ orderId, order }: Props) => {
   const [orderState, setOrderState] = useState<OrderState>({});
+
+  console.log(order)
 
   useEffect(() => {
     if (orderId) {
@@ -63,6 +64,14 @@ export const StateOrder: React.FC<Props> = ({ orderId, order }: Props) => {
         where("id", "==", orderId)
       );
       const querySnapshot = await getDocs(orderQuery);
+
+      if (querySnapshot.empty) {
+        console.error(
+          `No se encontró el pedido con id ${orderId} en OrderIncoming`
+        );
+        return;
+      }
+
       querySnapshot.forEach(async (doc) => {
         let newState: string = "";
         if (orderState[orderId]?.state === "pendiente") {
@@ -81,52 +90,57 @@ export const StateOrder: React.FC<Props> = ({ orderId, order }: Props) => {
 
         if (newState === "completado") {
           await deleteDoc(doc.ref);
+          console.log(`Documento con id ${orderId} eliminado de OrderIncoming`);
 
-          const cartCollectionRefs = collection(db, `orders`);
-          const cartQuerySnapshots = await getDocs(cartCollectionRefs);
-          cartQuerySnapshots.forEach(async (cartDoc) => {
-            if (cartDoc.id === orderId) {
-              await deleteDoc(cartDoc.ref);
-            }
-          });
+          const ordersQuery = query(
+            collection(db, "orders"),
+            where("user_uid", "==", order.user_uid)
+          );
+          const ordersSnapshot = await getDocs(ordersQuery);
+          if (ordersSnapshot.empty) {
+            console.error(
+              `No se encontró el pedido con id ${order.user_uid} en orders`
+            );
+          } else {
+            ordersSnapshot.forEach(async (orderDoc) => {
+              await deleteDoc(orderDoc.ref);
+              console.log(
+                `Documento con id ${order.user_uid} eliminado de orders`
+              );
+            });
+          }
 
-          const cartCollectionRef = collection(db, `cart`);
-          const cartQuerySnapshot = await getDocs(cartCollectionRef);
-          cartQuerySnapshot.forEach(async (cartDoc) => {
-            if (cartDoc.id === orderId) {
+          const cartQuery = query(
+            collection(db, "cart"),
+            where("user_uid", "==", order.user_uid)
+          );
+          const cartSnapshot = await getDocs(cartQuery);
+          if (cartSnapshot.empty) {
+            console.error(
+              `No se encontró el pedido con id ${order.user_uid} en cart` 
+            );
+          } else {
+            cartSnapshot.forEach(async (cartDoc) => {
               await deleteDoc(cartDoc.ref);
-            }
-          });
+              console.log(
+                `Documento con id ${order.user_uid} eliminado de cart`
+              );
+            });
+          }
+
           const orderCompletedCollectionRef = collection(db, "orderCompleted");
           await addDoc(orderCompletedCollectionRef, {
             orderId,
             order: order,
             createdAt: formatDate(new Date()),
           });
+          console.log(`Documento con id ${orderId} añadido a orderCompleted`);
         }
       });
     } catch (error) {
       console.error("Error actualizando el estado del pedido:", error);
     }
   };
-
-  const stateProduct = [
-    {
-      state: "pendiente",
-      image: { notes },
-      nameButton: "Aceptar pedido",
-    },
-    {
-      state: "preparando",
-      image: { notes },
-      nameButton: "Producto Listo",
-    },
-    {
-      state: "listo",
-      image: { notes },
-      nameButton: "Completado",
-    },
-  ];
 
   return (
     <Container>
@@ -141,7 +155,7 @@ export const StateOrder: React.FC<Props> = ({ orderId, order }: Props) => {
             <div>
               <img
                 src={
-                  stateProduct.find(
+                  StateProduct.find(
                     (item) => item.state === orderState[orderId]?.state
                   )?.image?.notes
                 }
@@ -162,7 +176,7 @@ export const StateOrder: React.FC<Props> = ({ orderId, order }: Props) => {
                 onClick={() => changeStateOrder(orderId)}
               >
                 {
-                  stateProduct.find(
+                  StateProduct.find(
                     (item) => item.state === orderState[orderId]?.state
                   )?.nameButton
                 }

@@ -10,6 +10,8 @@ import {
   onSnapshot,
 } from "@firebase/firestore";
 import { User } from "firebase/auth";
+import { useFormattedNumber } from "../../../../hooks/useFormattedNumber";
+import { useFetchDeliveryprice } from "../../../../hooks/useFetchDeliveryprice";
 
 interface Props {
   orderItems: Orders[];
@@ -20,26 +22,47 @@ export const ResumeOrder = ({ orderItems, user }: Props) => {
   const [deliveryOption, setDeliveryOption] = useState<string>("");
   const [deliveryCost, setDeliveryCost] = useState<number>(0);
 
+  const deliveryprice = useFetchDeliveryprice()
+  const deliveryCosts =  deliveryprice.length > 0 ? deliveryprice[0].price : 0
+
   const totalDelProducto = orderItems.reduce(
     (total, order) => total + order.totalDelProducto,
     0
   );
+
+  const {
+    value: formattedTotalDelProducto,
+    setValue: setFormattedTotalDelProducto,
+  } = useFormattedNumber(totalDelProducto);
+  const { value: formattedDeliveryCost, setValue: setFormattedDeliveryCost } =
+    useFormattedNumber(deliveryCost);
+  const { value: formattedTotalPagar, setValue: setFormattedTotalPagar } =
+    useFormattedNumber(totalDelProducto + deliveryCost);
 
   useEffect(() => {
     fetchDeliveryOption();
   }, [user]);
 
   useEffect(() => {
-    if (deliveryOption === "delivery") {
-      setDeliveryCost(4000);
-    } else {
-      setDeliveryCost(0);
-    }
-  }, [deliveryOption]);
+    setFormattedTotalDelProducto(totalDelProducto);
+  }, [totalDelProducto]);
 
   useEffect(() => {
-    const unsubscribe = listenForDeliveryOptionChanges();
-    return () => {};
+    if (deliveryOption === "Repartidor") {
+      setDeliveryCost(deliveryCosts);
+      setFormattedDeliveryCost(deliveryCosts);
+    } else {
+      setDeliveryCost(0);
+      setFormattedDeliveryCost(0);
+    }
+  }, [deliveryOption, deliveryCosts]);
+
+  useEffect(() => {
+    setFormattedTotalPagar(totalDelProducto + deliveryCost);
+  }, [totalDelProducto, deliveryCost]);
+
+  useEffect(() => {
+    listenForDeliveryOptionChanges();
   }, []);
 
   const fetchDeliveryOption = async () => {
@@ -84,13 +107,13 @@ export const ResumeOrder = ({ orderItems, user }: Props) => {
       <Text bold>Resumen</Text>
       <View flexDirection="row" justifyContent="space-between">
         <Text>Costo del Producto</Text>
-        <Text>${totalDelProducto}</Text>
+        <Text>${formattedTotalDelProducto}</Text>
       </View>
 
-      {deliveryOption === "delivery" && (
+      {deliveryOption === "Repartidor" && (
         <View flexDirection="row" justifyContent="space-between">
           <Text>Costo del domicilio</Text>
-          <Text>${deliveryCost}</Text>
+          <Text>${formattedDeliveryCost}</Text>
         </View>
       )}
 
@@ -99,7 +122,7 @@ export const ResumeOrder = ({ orderItems, user }: Props) => {
           Total a pagar
         </Text>
         <Text bold fontSize={30} mt={5}>
-          ${totalDelProducto + deliveryCost}
+          ${formattedTotalPagar}
         </Text>
       </View>
     </View>

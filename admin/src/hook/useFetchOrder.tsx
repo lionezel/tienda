@@ -22,6 +22,7 @@ const useFetchOrder = (orderId: string) => {
               total: doc.data().total,
               state: doc.data().state,
               createdAt: doc.data().createdAt || "",
+              user_uid: doc.data().user_uid
             };
             setOrder(orderData);
           }

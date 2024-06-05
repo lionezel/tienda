@@ -1,4 +1,4 @@
-import { Button, Image, Text, View } from "native-base";
+import { Image, Text, View } from "native-base";
 import React, { useEffect, useState } from "react";
 import {
   Address,
@@ -6,41 +6,27 @@ import {
   DeliveryOption,
   ResumeOrder,
 } from "./components";
-import { auth, db } from "../../firebase/config";
-import { collection, onSnapshot, query, where } from "@firebase/firestore";
+import { auth } from "../../firebase/config";
 import { User } from "firebase/auth";
 import { AntDesign } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-import { Orders } from "../../interfaces/Orders";
+import { useFetchOrder } from "../../hooks/useFetchOrder";
 
 const dinero = require("./assets/dinero.png");
-const tarjeta = require("./assets/tarjeta-bancaria.png");
+const qr = require("./assets/qr.png");
 
 interface Props {
   navigate(arg0: string): unknown;
 }
 
 export const Order = () => {
-  const [orderItems, setOrderItems] = useState<Orders[]>([]);
+  const orderItems = useFetchOrder();
   const [user, setUser] = useState<User | null>(null);
   const navigation = useNavigation<Props>();
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
-      if (user) {
-        const orderRef = collection(db, "orders");
-        const q = query(orderRef, where("user_uid", "==", user.uid));
-        const unsubscribeSnapshot = onSnapshot(q, (snapshot) => {
-          const items: Orders[] = [];
-          snapshot.forEach((doc) => {
-            items.push(doc.data() as Orders);
-          });
-          setOrderItems(items);
-          setUser(user);
-        });
-
-        return () => unsubscribeSnapshot();
-      }
+      setUser(user)
     });
     return () => unsubscribe();
   }, []);
@@ -83,10 +69,10 @@ export const Order = () => {
                     top: 6,
                   }}
                 />
-              ) : order.paymentMethod === "tarjeta" ? (
+              ) : order.paymentMethod === "Transferencia" ? (
                 <Image
-                  source={tarjeta}
-                  alt="tarjeta"
+                  source={qr}
+                  alt="qr"
                   style={{ width: 30, height: 30 }}
                 />
               ) : (

@@ -1,10 +1,15 @@
-
 import { createStackNavigator } from "@react-navigation/stack";
-import { CartPage, Home, MyOrderInComing, Order, ProductDetail } from "../../../page";
+import {
+  CartPage,
+  Checkout,
+  Home,
+  MyOrderInComing,
+  Order,
+  ProductDetail,
+} from "../../../page";
 import { PaymentMethod } from "../../../page/Order/components";
 import { Cart } from "../../../shared";
 import { UserInfo } from "../../../page/auth/page";
-
 
 const Stack = createStackNavigator();
 
@@ -20,6 +25,7 @@ export const HomeStack = () => {
     { component: Order, name: "Order" },
     { component: MyOrderInComing, name: "MyOrderInComing" },
     { component: PaymentMethod, name: "PaymentMethod" },
+    { component: Checkout, name: "Checkout" },
   ];
   return (
     <Stack.Navigator>

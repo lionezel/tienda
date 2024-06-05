@@ -9,7 +9,7 @@ import { useFetchUser } from "../../../../hooks/useFetchUser";
 
 export const UserInfo = () => {
   const userData = useFetchUser();
-
+  
   return (
     <ScrollView w="100%">
       <ImageBackground source={{ uri: GLOBAL_BACKGROUND }}>

@@ -72,18 +72,7 @@ export const Navigation = () => {
             tabBarActiveTintColor: GLOBAL_COLOR,
           }}
         />
-        <Tab.Screen
-          name="Pedido"
-          component={HomeStack}
-          options={{
-            tabBarIcon: ({ color, size }) => (
-              <FontAwesome5 name="shopping-bag" size={size} color="black" />
-            ),
-            tabBarButton: (props) => <PedidoButton {...props} />,
-            headerShown: false,
-            tabBarActiveTintColor: GLOBAL_COLOR,
-          }}
-        />
+
         <Tab.Screen
           name="Usuario"
           component={AuthStack}

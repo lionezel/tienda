@@ -1,5 +1,4 @@
 import { Image, Text, View } from "native-base";
-import { User } from "firebase/auth";
 import { OrderInComing } from "../../../../interfaces/OrderInComing";
 import { ButtonBase } from "../../../../GLOBAL/GLOBAL_STYLED";
 import { useNavigation } from "@react-navigation/native";
@@ -22,8 +21,6 @@ export const Ready = ({ order }: Props) => {
     navigation.navigate("Home");
   };
 
-  console.log(order);
-
   return (
     <View>
       {order && order.OpcionDeEntrega === "irPorElPedido" ? (
@@ -39,7 +36,7 @@ export const Ready = ({ order }: Props) => {
             />
           </View>
         </View>
-      ) : order && order.OpcionDeEntrega === "delivery" ? (
+      ) : order && order.OpcionDeEntrega === "Repartidor" ? (
         <View alignItems="center">
           <Text bold fontSize={30} numberOfLines={10}>
             Tu pedido está listo, el repartidor está yendo a tu casa
